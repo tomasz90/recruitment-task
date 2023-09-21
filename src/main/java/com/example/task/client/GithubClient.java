@@ -7,11 +7,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Component
-public class GithubClient {
+public final class GithubClient {
 
     private final Retrofit retrofit;
 
-    public GithubClient(@Value("githubUrl") String githubUrl) {
+    public GithubClient(@Value("${githubUrl}") String githubUrl) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         retrofit = new Retrofit.Builder()
                 .baseUrl(githubUrl)

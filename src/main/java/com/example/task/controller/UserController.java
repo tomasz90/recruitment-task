@@ -1,11 +1,12 @@
-package com.example.task.service;
+package com.example.task.controller;
 
+import com.example.task.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public final class UserController {
 
     private final UserService userService;
     public UserController(UserService userService) {
@@ -13,7 +14,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{login}")
-    UserInternalResponse getUser(@PathVariable String login) {
+    UserResponse getUser(@PathVariable String login) {
         return userService.getUser(login);
     }
 }

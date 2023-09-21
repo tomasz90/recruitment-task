@@ -1,5 +1,8 @@
 package com.example.task.client;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record GithubUserResponse(long id,
                                  String login,
                                  String name,
