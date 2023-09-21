@@ -1,15 +1,20 @@
 package com.example.task.service;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.task.client.GithubApi;
+import com.example.task.client.GithubUserResponse;
+import org.springframework.stereotype.Component;
 
-@RestController
+@Component
 public class UserService {
 
+    private final GithubApi githubApi;
+    public UserService(GithubApi githubApi) {
+        this.githubApi = githubApi;
+    }
 
-    @GetMapping("/users/{login}")
-    UserResponse getUser(@PathVariable String login) {
-        return null; // TODO: 19/09/2023  tbd
+    public UserInternalResponse getUser(String username) {
+        GithubUserResponse githubUserResponse = githubApi.getUser(username);
+        Double calculations = 6 / (double) githubUserResponse.followers() * (2 + githubUserResponse.public_repos());
+        return UserInternalResponse.convert(githubUserResponse, calculations);
     }
 }
