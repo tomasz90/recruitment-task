@@ -20,9 +20,11 @@ public final class UserService {
     }
 
     public UserResponse getUser(String login) {
-        GithubUserResponse githubUserResponse = githubApi.getUser(login);
-        Double calculations = 6 / (double) githubUserResponse.followers() * (2 + githubUserResponse.public_repos());
-        User user = userRepository.findByLogin(login);
+
+        var githubUserResponse = githubApi.getUser(login);
+        var calculations = 6 / (double) githubUserResponse.followers() * (2 + githubUserResponse.public_repos());
+        var user = userRepository.findByLogin(login);
+
         if(user == null) {
             userRepository.save(new User(login));
         } else {
