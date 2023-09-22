@@ -1,5 +1,7 @@
 package com.example.task.exception;
 
+import com.example.task.exception.UserExceptions.ExternalUserServiceNotAvailable;
+import com.example.task.exception.UserExceptions.UserServiceGenericException;
 import com.example.task.exception.UserExceptions.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,8 +16,17 @@ public class UserControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {UserNotFoundException.class})
     protected ResponseEntity<Object> handleUserNotFound(RuntimeException ex, WebRequest request) {
-        String responseBody = "User not found";
-        return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = {UserServiceGenericException.class})
+    protected ResponseEntity<Object> handleUserGenericException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(value = {ExternalUserServiceNotAvailable.class})
+    protected ResponseEntity<Object> handleExternalUserServiceNotAvailableException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }
 
