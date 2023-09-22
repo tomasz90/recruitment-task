@@ -3,17 +3,17 @@ package com.example.task.service;
 import com.example.task.client.GithubApi;
 import com.example.task.client.GithubUserResponse;
 import com.example.task.controller.UserResponse;
-import com.example.task.repository.IUserRepository;
-import com.example.task.repository.User;
+import com.example.task.repository.UserRepository;
+import com.example.task.repository.dao.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public final class UserService {
 
     private final GithubApi githubApi;
-    private final IUserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService(GithubApi githubApi, IUserRepository userRepository) {
+    public UserService(GithubApi githubApi, UserRepository userRepository) {
         this.githubApi = githubApi;
         this.userRepository = userRepository;
     }

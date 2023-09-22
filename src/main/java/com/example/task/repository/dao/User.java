@@ -1,18 +1,22 @@
-package com.example.task.repository;
+package com.example.task.repository.dao;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "github_user")
-public class User {
+@Getter
+@Setter
+public final class User {
     @Id
     @GeneratedValue
     @Column(nullable = false)
-    long id;
+    private long id;
     @Column(nullable = false)
-    String login;
+    private String login;
     @Column(nullable = false)
-    long requestCount;
+    private long requestCount;
 
     public User() {}
 

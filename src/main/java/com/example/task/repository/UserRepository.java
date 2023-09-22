@@ -1,5 +1,6 @@
 package com.example.task.repository;
 
+import com.example.task.repository.dao.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,9 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User, Long> {
-
-    User findByLogin(String login);
+public interface UserRepository extends JpaRepository<User, Long>, AbstractUserRepository {
 
     @Modifying
     @Transactional
