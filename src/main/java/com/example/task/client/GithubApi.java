@@ -12,10 +12,10 @@ final public class GithubApi {
         githubEndpoints = githubClient.getRetrofit().create(GithubEndpoints.class);
     }
 
-    public GithubUserResponse getUser(String username) {
+    public GithubUserResponse getUser(String login) {
         GithubUserResponse user = null;
         try {
-            Call<GithubUserResponse> callUser = githubEndpoints.getUser(username);
+            Call<GithubUserResponse> callUser = githubEndpoints.getUser(login);
             Response<GithubUserResponse> response = callUser.execute();
             user = response.body();
         } catch (Exception ex) {

@@ -18,14 +18,14 @@ public final class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserResponse getUser(String username) {
-        GithubUserResponse githubUserResponse = githubApi.getUser(username);
+    public UserResponse getUser(String login) {
+        GithubUserResponse githubUserResponse = githubApi.getUser(login);
         Double calculations = 6 / (double) githubUserResponse.followers() * (2 + githubUserResponse.public_repos());
-        User user = userRepository.findByLogin(username);
+        User user = userRepository.findByLogin(login);
         if(user == null) {
-            userRepository.save(new User(username));
+            userRepository.save(new User(login));
         } else {
-            userRepository.incrementUserRequestCount(username);
+            userRepository.incrementUserRequestCount(login);
         }
         return UserResponse.convert(githubUserResponse, calculations);
     }

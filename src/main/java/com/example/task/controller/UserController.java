@@ -14,7 +14,7 @@ public final class UserController {
     }
 
     @GetMapping("/users/{login}")
-    UserResponse getUser(@PathVariable String login) {
+    public UserResponse getUser(@PathVariable String login) {
         return userService.getUser(login);
     }
 }
