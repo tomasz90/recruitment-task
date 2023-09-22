@@ -1,5 +1,7 @@
 package com.example.task.client;
 
+import com.example.task.exception.UserExceptions;
+import com.example.task.exception.UserExceptions.UserNotFoundException;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -8,6 +10,7 @@ import retrofit2.Response;
 final public class GithubApi {
 
     private final GithubEndpoints githubEndpoints;
+
     public GithubApi(GithubClient githubClient) {
         githubEndpoints = githubClient.getRetrofit().create(GithubEndpoints.class);
     }
@@ -20,6 +23,9 @@ final public class GithubApi {
             user = response.body();
         } catch (Exception ex) {
 
+        }
+        if (user == null) {
+            throw new UserNotFoundException();
         }
         return user;
     }

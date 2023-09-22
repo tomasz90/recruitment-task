@@ -3,6 +3,7 @@ package com.example.task.service;
 import com.example.task.client.GithubApi;
 import com.example.task.client.GithubUserResponse;
 import com.example.task.controller.UserResponse;
+import com.example.task.exception.UserExceptions;
 import com.example.task.repository.UserRepository;
 import com.example.task.repository.dao.User;
 import org.springframework.stereotype.Component;
