@@ -1,21 +1,12 @@
 package com.example.task
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.web.servlet.MockMvc
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get as wireMockGet
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class UserTest extends BaseTest {
-
-    final def stubbedEndpoint = "/users/"
-    final def internalEndpoint = "/users/"
-
-    @Autowired
-    private MockMvc mockMvc
+class UserControllerPositiveSpec extends BaseSpec {
 
     def 'Should save new user and return proper response'() {
         given:
@@ -24,10 +15,10 @@ class UserTest extends BaseTest {
           def stubbedResponse = readFile("ok_response_github.json")
           def expectedResponse = readFile("ok_response_internal.json")
 
-          wm.stubFor(wireMockGet(stubbedEndpoint + login).willReturn(okJson(stubbedResponse)))
+          wm.stubFor(wireMockGet("$stubbedEndpoint$login").willReturn(okJson(stubbedResponse)))
 
         when:
-          def result = mockMvc.perform(get(internalEndpoint + login))
+          def result = mockMvc.perform(get("$internalEndpoint$login"))
 
         then:
           result.andExpectAll(status().isOk(), content().json(expectedResponse, true))
@@ -46,9 +37,9 @@ class UserTest extends BaseTest {
           def stubbedResponse = readFile("ok_response_github.json")
           def expectedResponse = readFile("ok_response_internal.json")
 
-          wm.stubFor(wireMockGet(stubbedEndpoint + login).willReturn(okJson(stubbedResponse)))
+          wm.stubFor(wireMockGet("$stubbedEndpoint$login").willReturn(okJson(stubbedResponse)))
 
-          def request = { mockMvc.perform(get(internalEndpoint + login)) }
+          def request = { mockMvc.perform(get("$internalEndpoint$login")) }
 
         when:
           request()

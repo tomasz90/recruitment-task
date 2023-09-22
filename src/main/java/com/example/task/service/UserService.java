@@ -1,9 +1,7 @@
 package com.example.task.service;
 
-import com.example.task.client.GithubApi;
-import com.example.task.client.GithubUserResponse;
+import com.example.task.client.GithubClient;
 import com.example.task.controller.UserResponse;
-import com.example.task.exception.UserExceptions;
 import com.example.task.repository.UserRepository;
 import com.example.task.repository.dao.User;
 import org.springframework.stereotype.Component;
@@ -11,17 +9,17 @@ import org.springframework.stereotype.Component;
 @Component
 public final class UserService {
 
-    private final GithubApi githubApi;
+    private final GithubClient githubClient;
     private final UserRepository userRepository;
 
-    public UserService(GithubApi githubApi, UserRepository userRepository) {
-        this.githubApi = githubApi;
+    public UserService(GithubClient githubClient, UserRepository userRepository) {
+        this.githubClient = githubClient;
         this.userRepository = userRepository;
     }
 
     public UserResponse getUser(String login) {
 
-        var githubUserResponse = githubApi.getUser(login);
+        var githubUserResponse = githubClient.getUser(login);
         var calculations = 6 / (double) githubUserResponse.followers() * (2 + githubUserResponse.public_repos());
         var user = userRepository.findByLogin(login);
 

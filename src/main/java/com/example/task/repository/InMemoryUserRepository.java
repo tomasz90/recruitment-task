@@ -12,7 +12,7 @@ import java.util.Objects;
 @Profile("test")
 class InMemoryUserRepository implements UserRepository {
 
-    Map<Long, User> users = new HashMap<>();
+    private final Map<Long, User> users = new HashMap<>();
 
 
     @Override
@@ -42,5 +42,9 @@ class InMemoryUserRepository implements UserRepository {
 
         var requestCount = user.getRequestCount();
         user.setRequestCount(requestCount + 1);
+    }
+
+    public void clean() {
+        users.clear();
     }
 }

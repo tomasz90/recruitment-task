@@ -1,8 +1,9 @@
 package com.example.task.exception;
 
 import com.example.task.exception.UserExceptions.ExternalUserServiceNotAvailable;
-import com.example.task.exception.UserExceptions.UserServiceGenericException;
 import com.example.task.exception.UserExceptions.UserNotFoundException;
+import com.example.task.exception.UserExceptions.UserServiceGenericException;
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,8 @@ public class UserControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {UserNotFoundException.class})
     protected ResponseEntity<Object> handleUserNotFound(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
+        return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(value = {UserServiceGenericException.class})
@@ -26,7 +28,8 @@ public class UserControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {ExternalUserServiceNotAvailable.class})
     protected ResponseEntity<Object> handleExternalUserServiceNotAvailableException(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
+        return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }
 
