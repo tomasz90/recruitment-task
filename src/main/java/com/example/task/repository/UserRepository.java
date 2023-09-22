@@ -1,19 +1,11 @@
 package com.example.task.repository;
 
 import com.example.task.repository.dao.User;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long>, AbstractUserRepository {
+public interface UserRepository {
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE github_user SET request_count = request_count + 1 WHERE login = :login",
-            nativeQuery = true)
-    void incrementUserRequestCount(@Param("login") String login);
+    User save(User user);
+
+    User findByLogin(String login);
+    void incrementUserRequestCount(String login);
 }

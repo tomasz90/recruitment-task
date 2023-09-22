@@ -1,15 +1,25 @@
 package com.example.task.repository;
 
 import com.example.task.repository.dao.User;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class InMemoryUserRepository implements AbstractUserRepository {
+@Repository
+@Profile("test")
+class InMemoryUserRepository implements UserRepository {
 
     Map<Long, User> users = new HashMap<>();
 
+
+    @Override
+    public User save(User user) {
+        users.put((long) users.size(), user);
+        return user;
+    }
 
     @Override
     public User findByLogin(String login) {
