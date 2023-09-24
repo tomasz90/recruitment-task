@@ -9,8 +9,8 @@ public class UserExceptions {
     }
 
     public static class UserServiceGenericException extends RuntimeException {
-        public UserServiceGenericException(String message) {
-            super(message);
+        public UserServiceGenericException() {
+            super("Internal server error");
         }
     }
 
