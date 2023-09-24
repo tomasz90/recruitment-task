@@ -1,5 +1,6 @@
 package com.example.task
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.get as wireMockGet
 import static com.github.tomakehurst.wiremock.client.WireMock.jsonResponse
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -34,6 +35,7 @@ class UserControllerNegativeSpec extends BaseSpec {
           def login = "bob123455"
 
           def expectedResponse = readFile("service_not_available_response_internal.json")
+
         when:
           def result = mockMvc.perform(get("$internalEndpoint$login"))
 
@@ -46,5 +48,24 @@ class UserControllerNegativeSpec extends BaseSpec {
 
         cleanup:
           wm.start()
+    }
+
+    def 'Should return internal server error when github responded with some error'() {
+        given:
+          def login = "bob123455"
+
+          def expectedResponse = readFile("server_error_response_internal.json")
+
+          wm.stubFor(wireMockGet("$stubbedEndpoint$login").willReturn(aResponse().withStatus(500)))
+
+        when:
+          def result = mockMvc.perform(get("$internalEndpoint$login"))
+
+        then:
+          result.andExpectAll(status().is(500), content().json(expectedResponse, true))
+
+        and:
+          def user = userRepository.findByLogin(login)
+          user == null
     }
 }

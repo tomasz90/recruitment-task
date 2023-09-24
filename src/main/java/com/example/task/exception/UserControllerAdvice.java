@@ -23,7 +23,8 @@ public class UserControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {UserServiceGenericException.class})
     protected ResponseEntity<Object> handleUserGenericException(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
+        return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(value = {ExternalUserServiceNotAvailable.class})

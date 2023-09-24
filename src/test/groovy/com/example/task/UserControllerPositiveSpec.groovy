@@ -44,6 +44,7 @@ class UserControllerPositiveSpec extends BaseSpec {
         when:
           request()
           def result = request()
+
         then:
           result.andExpectAll(status().isOk(), content().json(expectedResponse, true))
 
