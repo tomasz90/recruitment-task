@@ -13,22 +13,22 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class UserControllerAdvice extends ResponseEntityExceptionHandler {
+final class UserControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {UserNotFoundException.class})
-    protected ResponseEntity<Object> handleUserNotFound(RuntimeException ex, WebRequest request) {
+    private ResponseEntity<Object> handleUserNotFound(RuntimeException ex, WebRequest request) {
         var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
         return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(value = {UserServiceGenericException.class})
-    protected ResponseEntity<Object> handleUserGenericException(RuntimeException ex, WebRequest request) {
+    private ResponseEntity<Object> handleUserGenericException(RuntimeException ex, WebRequest request) {
         var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
         return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(value = {ExternalUserServiceNotAvailable.class})
-    protected ResponseEntity<Object> handleExternalUserServiceNotAvailableException(RuntimeException ex, WebRequest request) {
+    private ResponseEntity<Object> handleExternalUserServiceNotAvailableException(RuntimeException ex, WebRequest request) {
         var responseBody = new JSONObject().put("message", ex.getMessage()).toString();
         return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

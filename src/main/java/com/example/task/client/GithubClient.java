@@ -14,7 +14,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 
 @Component
-final public class GithubClient {
+public final class GithubClient {
 
     private final GithubEndpoints githubEndpoints;
     private final Logger logger = LoggerFactory.getLogger(GithubClient.class);

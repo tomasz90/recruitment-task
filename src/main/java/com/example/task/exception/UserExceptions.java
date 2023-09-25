@@ -1,6 +1,6 @@
 package com.example.task.exception;
 
-public class UserExceptions {
+public final class UserExceptions {
 
     public static class UserNotFoundException extends RuntimeException {
         public UserNotFoundException() {
