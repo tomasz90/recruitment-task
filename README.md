@@ -34,7 +34,7 @@ The "calculations" field contains the result of the calculation: `6 / followers_
 
 Additionally, the service keeps track of the number of API requests made for each user's login. This information is stored in a database with two columns: `LOGIN` and `REQUEST_COUNT`. The `REQUEST_COUNT` is incremented for each API call.
 
-You can test this service using Swagger UI available on: http://localhost:8080/swagger-ui/index.html
+You can play with this service using Swagger UI available on: http://localhost:8080/swagger-ui/index.html
 
 Repo also contains github actions which triggers all tests on push to master
 
@@ -43,5 +43,3 @@ Repo also contains github actions which triggers all tests on push to master
 - Main code implemented in Java
 - Tests implemented in Groovy using Spock + WireMock
 - Buildable using Gradle
-
-Please ensure that good programming practices are followed during development.
