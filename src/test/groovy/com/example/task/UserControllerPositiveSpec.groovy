@@ -27,7 +27,7 @@ class UserControllerPositiveSpec extends BaseSpec {
           def user = userRepository.findByLogin(login)
           user != null
           user.login == login
-          user.requestCount == 0
+          user.requestCount == 1
     }
 
     def 'Should increment request_count and return proper response'() {
@@ -52,6 +52,6 @@ class UserControllerPositiveSpec extends BaseSpec {
           def user = userRepository.findByLogin(login)
           user != null
           user.login == login
-          user.requestCount == 1
+          user.requestCount == 2
     }
 }

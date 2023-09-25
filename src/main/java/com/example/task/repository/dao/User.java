@@ -22,6 +22,6 @@ public final class User {
 
     public User(String login) {
         this.login = login;
-        this.requestCount = 0;
+        this.requestCount = 1;
     }
 }
