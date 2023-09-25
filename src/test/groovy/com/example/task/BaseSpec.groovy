@@ -10,7 +10,9 @@ import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Shared
 import spock.lang.Specification
 
-@SpringBootTest(properties = "githubUrl=http://localhost:8080")
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
+
+@SpringBootTest(properties = "githubUrl=http://localhost:8090")
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 class BaseSpec extends Specification {
@@ -28,7 +30,7 @@ class BaseSpec extends Specification {
     final internalEndpoint = "/users/"
 
     def setupSpec() {
-        wm = new WireMockServer()
+        wm = new WireMockServer(options().port(8090)) //port must match to override value in annotation
         wm.start()
     }
 
