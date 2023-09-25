@@ -40,6 +40,6 @@ Repo also contains github actions which triggers all tests on push to master
 
 ## Technology Stack
 
-- Main code implemented in Java
+- Main code implemented in Java + Springboot
 - Tests implemented in Groovy using Spock + WireMock
 - Buildable using Gradle
